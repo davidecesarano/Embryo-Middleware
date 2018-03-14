@@ -21,8 +21,7 @@ Create ServerRequest object and callable default Response.
 use Middleware\MiddlewareDispatcher;
 use Zend\Diactoros\{ServerRequestFactory, Response};
 use Middlewares\{Uuid, ResponseTime};
-use Psr\Http\Server\{MiddlewareInterface, RequestHandlerInterface};
-use Psr\Http\Message\{ResponseInterface, ServerRequestInterface};
+use Psr\Http\Message\ServerRequestInterface;
 
 // PSR-7 implementation
 $request = ServerRequestFactory::fromGlobals();

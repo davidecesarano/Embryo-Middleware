@@ -29,7 +29,7 @@
         protected $index = 0;
         
         /**
-         * @var callable $response
+         * @var ResponseInterface $response
          */
         protected $response;
 
@@ -47,9 +47,9 @@
          * Esegue il dispatch dei middleware
          * 
          * @param ServerRequestInterface $request 
-         * @param callable $response
+         * @param ResponseInterface $response
          */
-        public function dispatch(ServerRequestInterface $request, callable $response): ResponseInterface
+        public function dispatch(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
         {
             reset($this->middlewares);
             $this->response = $response;

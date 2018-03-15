@@ -26,11 +26,22 @@
         public function handle(ServerRequestInterface $request): ResponseInterface
         {
             if (empty($this->middlewares[$this->index])) {
-                return call_user_func($this->response, $request);
+                return call_user_func([$this, 'response'], $request);
             }
     
             $middleware = $this->middlewares[$this->index];
             return $middleware->process($request, $this->next());
+        }
+
+        /**
+         * Risposta
+         * 
+         * @param ServerRequestInterface $request 
+         * @return ResponseInterface
+         */
+        private function response(ServerRequestInterface $request): ResponseInterface
+        {
+            return $this->response;
         }
 
         /**

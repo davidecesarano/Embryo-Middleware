@@ -11,7 +11,7 @@ Simple dispatcher ([PSR-15](https://www.php-fig.org/psr/psr-15/) server request 
 ## Usage
 The MiddlewareDispatcher is a container for a queue of PSR-15 middleware. It takes two methods:
 * the method `add` append the middleware for to create a queue of middleware entries.
-* the method `dispatch` requires two arguments, a `ServerRequest` object and a callable default `Response` (used by terminator to return an empty response).
+* the method `dispatch` requires two arguments, a `ServerRequest` object and a `Response` object (used by terminator to return an empty response).
 
 ## Example
 ### Set ServerRequest and Response
@@ -25,11 +25,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 // PSR-7 implementation
 $request = ServerRequestFactory::fromGlobals();
-
-// default handler for end of collection
-$response = function(ServerRequestInterface $request){
-    return new Response;
-};
+$response = new Response;
 ```
 
 ### Add middleware

@@ -15,7 +15,7 @@ The MiddlewareDispatcher is a container for a queue of PSR-15 middleware. It tak
 
 ## Example
 ### Set ServerRequest and Response
-Create ServerRequest object and callable default Response.
+Create `ServerRequest` and `Response` objects.
 
 ```php
 use Middleware\MiddlewareDispatcher;
@@ -32,7 +32,6 @@ $response = new Response;
 Create a queue of PSR-15 middleware with the `add` method. In this example we use two PSR-15 compatible middleware: [Uuid Middleware](https://github.com/middlewares/uuid) and [ResponseTime Middleware](https://github.com/middlewares/response-time).
 
 ```php
-
 // PSR-15 MiddlewareInterface implementation
 $middleware = new MiddlewareDispatcher;
 $middleware->add(new Uuid);

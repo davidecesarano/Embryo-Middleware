@@ -1,12 +1,12 @@
 {
-    "name": "davidecesarano/Embryo-Middleware",
+    "name": "davidecesarano/embryo-middleware",
     "type": "library",
     "description": "A PSR-15 middleware dispatcher.",
     "keywords": [
         "middleware",
         "psr-15"
     ],
-    "homepage": "https://github.com/davidecesarano/Embryo-Middleware",
+    "homepage": "https://github.com/davidecesarano/embryo-middleware",
     "license": "MIT",
     "authors": [
         {

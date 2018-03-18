@@ -1,4 +1,4 @@
-# PSR-15 Middleware Dispatcher
+# Embryo Middleware
 Simple dispatcher ([PSR-15](https://www.php-fig.org/psr/psr-15/) server request handler) for a queue of PSR-15 middleware entries. Request handlers and middleware components are a fundamental part of any web application. Server side code receives a request message, processes it, and produces a response message. HTTP middleware is a way to move common request and response processing away from the application layer.
 
 ## Requirements

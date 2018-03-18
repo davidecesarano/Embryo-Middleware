@@ -18,7 +18,7 @@ The MiddlewareDispatcher is a container for a queue of PSR-15 middleware. It tak
 Create `ServerRequest` and `Response` objects.
 
 ```php
-use Middleware\MiddlewareDispatcher;
+use Embryo\Http\Server\MiddlewareDispatcher;
 use Zend\Diactoros\{ServerRequestFactory, Response};
 use Middlewares\{Uuid, ResponseTime};
 use Psr\Http\Message\ServerRequestInterface;

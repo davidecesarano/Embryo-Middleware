@@ -2,7 +2,7 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Middleware\MiddlewareDispatcher;
+use Embryo\Http\Server\MiddlewareDispatcher;
 use Zend\Diactoros\{ServerRequestFactory, Response};
 use Middlewares\{Uuid, ResponseTime};
 

@@ -8,10 +8,9 @@
      * @link https://github.com/php-fig/http-server-handler/blob/master/src/RequestHandlerInterface.php
      */
 
-    namespace Middleware;
+    namespace Embryo\Http\Server;
 
-    use Psr\Http\Message\ResponseInterface;
-    use Psr\Http\Message\ServerRequestInterface;
+    use Psr\Http\Message\{ResponseInterface, ServerRequestInterface};
     use Psr\Http\Server\RequestHandlerInterface;
 
     class RequestHandler implements RequestHandlerInterface

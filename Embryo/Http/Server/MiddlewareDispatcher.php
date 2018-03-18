@@ -8,13 +8,11 @@
      * @link https://www.php-fig.org/psr/psr-15/
      */
 
-    namespace Middleware;
+    namespace Embryo\Http\Server;
     
-    use Middleware\RequestHandler;
-    use Psr\Http\Message\ResponseInterface;
-    use Psr\Http\Message\ServerRequestInterface;
-    use Psr\Http\Server\MiddlewareInterface;
-    use Psr\Http\Server\RequestHandlerInterface;
+    use Embryo\Http\Server\RequestHandler;
+    use Psr\Http\Message\{ResponseInterface, ServerRequestInterface};
+    use Psr\Http\Server\{MiddlewareInterface, RequestHandlerInterface};
 
     class MiddlewareDispatcher extends RequestHandler
     {

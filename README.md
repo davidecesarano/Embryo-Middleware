@@ -6,7 +6,9 @@ Simple dispatcher ([PSR-15](https://www.php-fig.org/psr/psr-15/) server request 
 * A [PSR-7](https://www.php-fig.org/psr/psr-7/) http message implementation (ex. [Diactoros](https://github.com/zendframework/zend-diactoros))
 
 ## Installation
-`composer require davidecesarano/embryo-middleware`
+```
+$ composer require davidecesarano/embryo-middleware
+```
 
 ## Usage
 The MiddlewareDispatcher is a container for a queue of PSR-15 middleware. It takes two methods:

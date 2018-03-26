@@ -3,11 +3,11 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use Embryo\Http\Server\MiddlewareDispatcher;
-use Zend\Diactoros\{ServerRequestFactory, Response};
+use Embryo\Http\Factory\{ServerRequestFactory, ResponseFactory};
 use Middlewares\{Uuid, ResponseTime};
 
-$request = ServerRequestFactory::fromGlobals();
-$response = new Response;
+$request = (new ServerRequestFactory)->createServerRequestFromArray($_SERVER);
+$response = (new ResponseFactory)->createResponse(200);
 
 $middleware = new MiddlewareDispatcher;
 $middleware->add(new Uuid);

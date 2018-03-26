@@ -3,7 +3,7 @@ Simple dispatcher ([PSR-15](https://www.php-fig.org/psr/psr-15/) server request 
 
 ## Requirements
 * PHP >= 7.1
-* A [PSR-7](https://www.php-fig.org/psr/psr-7/) http message implementation (ex. [Diactoros](https://github.com/zendframework/zend-diactoros))
+* A [PSR-7](https://www.php-fig.org/psr/psr-7/) http message implementation (ex. [Embryo-Http](https://github.com/davidecesarano/embryo-http))
 
 ## Installation
 ```
@@ -21,13 +21,13 @@ Create `ServerRequest` and `Response` objects.
 
 ```php
 use Embryo\Http\Server\MiddlewareDispatcher;
-use Zend\Diactoros\{ServerRequestFactory, Response};
+use Embryo\Http\Factory\{ServerRequestFactory, ResponseFactory};
 use Middlewares\{Uuid, ResponseTime};
 use Psr\Http\Message\ServerRequestInterface;
 
 // PSR-7 implementation
-$request = ServerRequestFactory::fromGlobals();
-$response = new Response;
+$request = (new ServerRequestFactory)->createServerRequestFromArray($_SERVER);
+$response = (new ResponseFactory)->createResponse(200);
 ```
 
 ### Add middleware
@@ -42,7 +42,7 @@ $response = $middleware->dispatch($request, $response);
 ```
 
 ### Result
-The dispatch produces a response message.
+The dispatch produces a response messages.
 
 ```php
 echo 'X-Response-Time: ' . $response->getHeaderLine('X-Response-Time').'<br/>';

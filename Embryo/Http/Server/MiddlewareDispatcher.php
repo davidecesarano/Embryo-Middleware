@@ -3,18 +3,16 @@
     /**
      * MiddlewareDispatcher
      * 
-     * Implementazione della specifica PSR 15
-     * 
-     * @link https://www.php-fig.org/psr/psr-15/
+     * @author Davide Cesarano <davide.cesarano@unipegaso.it>
+     * @link   https://github.com/davidecesarano/embryo-middleware
+     * @see    https://github.com/php-fig/http-server-handler/blob/master/src/RequestHandlerInterface.php
      */
 
     namespace Embryo\Http\Server;
     
-    use Embryo\Http\Server\RequestHandler;
     use Psr\Http\Message\{ResponseInterface, ServerRequestInterface};
-    use Psr\Http\Server\{MiddlewareInterface, RequestHandlerInterface};
 
-    class MiddlewareDispatcher extends RequestHandler
+    class MiddlewareDispatcher extends MiddlewareCollection
     {
         /**
          * @var array $middleware 
@@ -32,23 +30,14 @@
         protected $response;
 
         /**
-         * Aggiunge middleware 
-         *
-         * @param MiddlewareInterface $middleware 
-         */
-        public function add(MiddlewareInterface $middleware)
-        {
-            $this->middlewares[] = $middleware;
-        }
-
-        /**
-         * Esegue il dispatch dei middleware
+         * Dispatcher.
          * 
          * @param ServerRequestInterface $request 
          * @param ResponseInterface $response
          */
         public function dispatch(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
         {
+            $this->middlewares = array_merge($this->before, $this->route, $this->after);
             reset($this->middlewares);
             $this->response = $response;
             return $this->handle($request);

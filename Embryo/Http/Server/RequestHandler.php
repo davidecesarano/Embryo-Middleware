@@ -3,9 +3,11 @@
     /**
      * RequestHandler
      * 
-     * Gestisce una richiesta del server e produce una risposta
+     * Handle the request and return a response.
      * 
-     * @link https://github.com/php-fig/http-server-handler/blob/master/src/RequestHandlerInterface.php
+     * @author Davide Cesarano <davide.cesarano@unipegaso.it>
+     * @link   https://github.com/davidecesarano/embryo-middleware
+     * @see    https://github.com/php-fig/http-server-handler/blob/master/src/RequestHandlerInterface.php
      */
 
     namespace Embryo\Http\Server;
@@ -16,16 +18,16 @@
     class RequestHandler implements RequestHandlerInterface
     {
         /**
-         * Gestisce richiesta e produce una risposta 
-         * richiamando i middleware succcessivi
+         * Handle the request, return a response and calls
+         * next middleware.
          * 
          * @param ServerRequestInterface $request 
          * @return ResponseInterface
          */
         public function handle(ServerRequestInterface $request): ResponseInterface
         {
-            if (empty($this->middlewares[$this->index])) {
-                return call_user_func([$this, 'response'], $request);
+            if (!isset($this->middlewares[$this->index])) {
+                return $this->response;
             }
     
             $middleware = $this->middlewares[$this->index];
@@ -33,18 +35,9 @@
         }
 
         /**
-         * Risposta
+         * Next middleware.
          * 
-         * @param ServerRequestInterface $request 
-         * @return ResponseInterface
-         */
-        private function response(ServerRequestInterface $request): ResponseInterface
-        {
-            return $this->response;
-        }
-
-        /**
-         * Middleware successivo
+         * @return static
          */
         private function next()
         {

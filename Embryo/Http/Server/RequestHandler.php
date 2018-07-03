@@ -12,7 +12,6 @@
 
     namespace Embryo\Http\Server;
 
-    use Embryo\Http\Factory\ResponseFactory;
     use Psr\Http\Message\{ResponseInterface, ServerRequestInterface};
     use Psr\Http\Server\RequestHandlerInterface;
 

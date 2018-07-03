@@ -18,47 +18,22 @@
     class MiddlewareCollection extends RequestHandler
     {
         /**
-         * @var array $before 
+         * @var array $middleware 
          */
-        protected $before = [];
-
-        /**
-         * @var array $routes 
-         */
-        protected $route = [];
-
-        /**
-         * @var array $after 
-         */
-        protected $after = [];
+        protected $middleware = [];
 
         /**
          * Adds middleware.
          *
-         * @param MiddlewareInterface $middleware 
+         * @param string|MiddlewareInterface $middleware 
          */
-        public function add(MiddlewareInterface $middleware)
+        public function add($middleware)
         {
-            $this->before[] = $middleware;
-        }
+            if (!is_string($middleware) && !$middleware instanceof MiddlewareInterface) {
+                throw new \InvalidArgumentException('Middleware must be a string or an instance of MiddlewareInterface');
+            }
 
-        /**
-         * Adds route like middleware.
-         *
-         * @param MiddlewareInterface $middleware 
-         */
-        public function addRoute(MiddlewareInterface $middleware)
-        {
-            $this->route[] = $middleware;
-        }
-
-        /**
-         * Adds middleware after routing.
-         *
-         * @param MiddlewareInterface $middleware 
-         */
-        public function addAfterRouting(MiddlewareInterface $middleware)
-        {
-            $this->after[] = $middleware;
+            $class = is_string($middleware) ? new $middleware : $middleware;
+            $this->middleware[] = $class;
         }
     }

@@ -15,15 +15,10 @@
     class MiddlewareDispatcher extends MiddlewareCollection
     {
         /**
-         * @var array $middleware 
-         */
-        protected $middlewares = [];
-
-        /**
          * @var int $index
          */
         protected $index = 0;
-        
+
         /**
          * @var ResponseInterface $response
          */
@@ -37,8 +32,7 @@
          */
         public function dispatch(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
         {
-            $this->middlewares = array_merge($this->before, $this->route, $this->after);
-            reset($this->middlewares);
+            reset($this->middleware);
             $this->response = $response;
             return $this->handle($request);
         }

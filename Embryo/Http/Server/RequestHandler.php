@@ -12,6 +12,7 @@
 
     namespace Embryo\Http\Server;
 
+    use Embryo\Http\Factory\ResponseFactory;
     use Psr\Http\Message\{ResponseInterface, ServerRequestInterface};
     use Psr\Http\Server\RequestHandlerInterface;
 
@@ -26,11 +27,11 @@
          */
         public function handle(ServerRequestInterface $request): ResponseInterface
         {
-            if (!isset($this->middlewares[$this->index])) {
+            if (!isset($this->middleware[$this->index])) {
                 return $this->response;
             }
     
-            $middleware = $this->middlewares[$this->index];
+            $middleware = $this->middleware[$this->index];
             return $middleware->process($request, $this->next());
         }
 

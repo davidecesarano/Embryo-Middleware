@@ -26,7 +26,7 @@ use Middlewares\{Uuid, ResponseTime};
 use Psr\Http\Message\ServerRequestInterface;
 
 // PSR-7 implementation
-$request = (new ServerRequestFactory)->createServerRequestFromArray($_SERVER);
+$request = (new ServerRequestFactory)->createServerRequestFromServer();
 $response = (new ResponseFactory)->createResponse(200);
 ```
 

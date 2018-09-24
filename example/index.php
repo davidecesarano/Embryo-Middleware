@@ -6,7 +6,7 @@ use Embryo\Http\Server\MiddlewareDispatcher;
 use Embryo\Http\Factory\{ServerRequestFactory, ResponseFactory};
 use Middlewares\{Uuid, ResponseTime};
 
-$request = (new ServerRequestFactory)->createServerRequestFromServer($_SERVER, $_GET, $_POST, $_COOKIE, $_FILES);
+$request = (new ServerRequestFactory)->createServerRequestFromServer();
 $response = (new ResponseFactory)->createResponse(200);
 
 $middleware = new MiddlewareDispatcher;

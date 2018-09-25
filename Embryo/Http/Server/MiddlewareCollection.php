@@ -23,6 +23,20 @@
         protected $middleware = [];
 
         /**
+         * Adds middleware queue.
+         *
+         * @param array $middleware
+         */
+        public function __construct(array $middleware = [])
+        {
+            if (!empty($middleware)) {
+                foreach ($middleware as $class) {
+                    $this->add($class);
+                }
+            }
+        }
+        
+        /**
          * Adds middleware.
          *
          * @param string|MiddlewareInterface $middleware 

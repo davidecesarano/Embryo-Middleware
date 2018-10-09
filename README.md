@@ -4,7 +4,6 @@ Simple dispatcher ([PSR-15](https://www.php-fig.org/psr/psr-15/) server request 
 ## Requirements
 * PHP >= 7.1
 * A [PSR-7](https://www.php-fig.org/psr/psr-7/) http message implementation (ex. [Embryo-Http](https://github.com/davidecesarano/embryo-http))
-* A [PSR-11](https://www.php-fig.org/psr/psr-11/) container implementation (ex. [Embryo-Container](https://github.com/davidecesarano/embryo-container))
 
 ## Installation
 ```
@@ -21,7 +20,6 @@ The MiddlewareDispatcher is a container for a queue of PSR-15 middleware. It tak
 Create `ServerRequest` and `Response` objects.
 
 ```php
-use Embryo\Container\Container;
 use Embryo\Http\Server\MiddlewareDispatcher;
 use Embryo\Http\Factory\{ServerRequestFactory, ResponseFactory};
 use Middlewares\{Uuid, ResponseTime};
@@ -30,9 +28,6 @@ use Psr\Http\Message\ServerRequestInterface;
 // PSR-7 implementation
 $request = (new ServerRequestFactory)->createServerRequestFromServer();
 $response = (new ResponseFactory)->createResponse(200);
-
-// PSR-11 implementation
-$container = new Container;
 ```
 
 ### Add middleware

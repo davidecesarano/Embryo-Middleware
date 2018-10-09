@@ -10,7 +10,6 @@
 
     namespace Embryo\Http\Server;
     
-    use Psr\Container\ContainerInterface;
     use Psr\Http\Message\{ResponseInterface, ServerRequestInterface};
 
     class MiddlewareDispatcher extends MiddlewareCollection
@@ -24,21 +23,6 @@
          * @var ResponseInterface $response
          */
         protected $response;
-
-        /**
-         * @var ContainerInterface $container
-         */
-        protected $container;
-
-        /**
-         * Sets Container.
-         *
-         * @param ContainerInterface $container
-         */
-        public function __construct(ContainerInterface $container)
-        {
-            $this->container = $container;
-        }
 
         /**
          * Dispatcher.

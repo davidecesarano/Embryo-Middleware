@@ -21,18 +21,33 @@
          * @var array $middleware 
          */
         protected $middleware = [];
+
+        /**
+         * Adds middleware queue.
+         *
+         * @param array $middleware
+         */
+        public function __construct(array $middleware = [])
+        {
+            if (!empty($middleware)) {
+                foreach ($middleware as $class) {
+                    $this->add($class);
+                }
+            }
+        }
         
         /**
          * Adds middleware.
          *
-         * @param string $middleware 
+         * @param string|MiddlewareInterface $middleware 
          */
-        public function add(string $middleware)
+        public function add($middleware)
         {
-            $class = new $middleware($this->container);
-            if (!$class instanceof MiddlewareInterface) {
-                throw new \InvalidArgumentException('Middleware must be a an instance of MiddlewareInterface');
+            if (!is_string($middleware) && !$middleware instanceof MiddlewareInterface) {
+                throw new \InvalidArgumentException('Middleware must be a string or an instance of MiddlewareInterface');
             }
+
+            $class = is_string($middleware) ? new $middleware : $middleware;
             $this->middleware[] = $class;
         }
     }

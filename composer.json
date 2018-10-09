@@ -17,11 +17,9 @@
     "require": {
         "php": ">=7.1",
         "psr/http-server-handler": "1.0.0",
-        "psr/http-server-middleware": "1.0.0",
-        "psr/container": "1.0.0"
+        "psr/http-server-middleware": "1.0.0"
     },
     "require-dev": {
-        "davidecesarano/embryo-container": "dev-master",
         "davidecesarano/embryo-http": "dev-master",
         "middlewares/response-time": "v1.0.0",
         "middlewares/uuid": "v1.0.0"

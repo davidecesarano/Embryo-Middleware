@@ -3,9 +3,10 @@ Simple dispatcher ([PSR-15](https://www.php-fig.org/psr/psr-15/) server request 
 
 ## Requirements
 * PHP >= 7.1
-* A [PSR-7](https://www.php-fig.org/psr/psr-7/) http message implementation (ex. [Embryo-Http](https://github.com/davidecesarano/embryo-http))
+* A [PSR-7](https://www.php-fig.org/psr/psr-7/) http message implementation and [PSR-17](https://www.php-fig.org/psr/psr-17/) http factory implementation (ex. [Embryo-Http](https://github.com/davidecesarano/embryo-http))
 
 ## Installation
+Using Composer:
 ```
 $ composer require davidecesarano/embryo-middleware
 ```
@@ -15,7 +16,6 @@ The MiddlewareDispatcher is a container for a queue of PSR-15 middleware. It tak
 * the method `add` appends the middleware to create a queue of middleware entries.
 * the method `dispatch` requires two arguments, a `ServerRequest` object and a `Response` object (used by terminator to return an empty response).
 
-## Example
 ### Set ServerRequest and Response
 Create `ServerRequest` and `Response` objects.
 
@@ -35,7 +35,7 @@ Create a queue of PSR-15 middleware with the `add` method. In this example we us
 
 ```php
 // PSR-15 MiddlewareInterface implementation
-$middleware = new MiddlewareDispatcher($container);
+$middleware = new MiddlewareDispatcher;
 $middleware->add(Uuid::class);
 $middleware->add(ResponseTime::class);
 $response = $middleware->dispatch($request, $response);
@@ -51,4 +51,11 @@ echo 'X-Uuid: ' . $response->getHeaderLine('X-Uuid').'<br/>';
 echo '<pre>';
     print_r($response->getHeaders());
 echo '</pre>';
+```
+
+### Example
+You may quickly test this using the built-in PHP server:
+```
+$ cd example
+$ php -S localhost:8000
 ```

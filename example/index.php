@@ -2,16 +2,17 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Embryo\Http\Server\MiddlewareDispatcher;
+use Embryo\Http\Server\RequestHandler;
 use Embryo\Http\Factory\{ServerRequestFactory, ResponseFactory};
 use Middlewares\{Uuid, ResponseTime};
 
 $request = (new ServerRequestFactory)->createServerRequestFromServer();
 $response = (new ResponseFactory)->createResponse(200);
 
-$middleware = new MiddlewareDispatcher;
-$middleware->add(Uuid::class);
-$middleware->add(ResponseTime::class);
+$middleware = new RequestHandler([
+    Uuid::class,
+    ResponseTime::class
+]);
 $response = $middleware->dispatch($request, $response);
 
 echo 'X-Response-Time: ' . $response->getHeaderLine('X-Response-Time').'<br/>';

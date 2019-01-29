@@ -3,7 +3,8 @@
     /**
      * RequestHandler
      * 
-     * Handle the request and return a response.
+     * Create a collection of middleware, 
+     * handle the request and return a response.
      * 
      * @author Davide Cesarano <davide.cesarano@unipegaso.it>
      * @link   https://github.com/davidecesarano/embryo-middleware
@@ -13,10 +14,78 @@
     namespace Embryo\Http\Server;
 
     use Psr\Http\Message\{ResponseInterface, ServerRequestInterface};
-    use Psr\Http\Server\RequestHandlerInterface;
+    use Psr\Http\Server\{MiddlewareInterface, RequestHandlerInterface};
 
     class RequestHandler implements RequestHandlerInterface
     {
+        /**
+         * @var int $index
+         */
+        protected $index = 0;
+
+        /**
+         * @var array $middleware 
+         */
+        protected $middleware = [];
+        
+        /**
+         * @var array $middleware 
+         */
+        protected $response;
+
+        /**
+         * Add middleware queue.
+         *
+         * @param array $middleware
+         */
+        public function __construct(array $middleware = [])
+        {
+            array_map([$this, 'add'], $middleware);
+        }
+        
+        /**
+         * Add a middleware to the end of the queue.
+         *
+         * @param string|MiddlewareInterface $middleware 
+         */
+        public function add($middleware)
+        {
+            if (!is_string($middleware) && !$middleware instanceof MiddlewareInterface) {
+                throw new \InvalidArgumentException('Middleware must be a string or an instance of MiddlewareInterface');
+            }
+
+            $class = is_string($middleware) ? new $middleware : $middleware;
+            array_push($this->middleware, $class);
+        }
+
+        /**
+         * Add a middleware to the beginning of the queue.
+         *
+         * @param string|MiddlewareInterface $middleware 
+         */
+        public function prepend($middleware)
+        {
+            if (!is_string($middleware) && !$middleware instanceof MiddlewareInterface) {
+                throw new \InvalidArgumentException('Middleware must be a string or an instance of MiddlewareInterface');
+            }
+
+            $class = is_string($middleware) ? new $middleware : $middleware;
+            array_unshift($this->middleware, $class);
+        }
+
+        /**
+         * Dispatch the middleware queue.
+         * 
+         * @param ServerRequestInterface $request 
+         * @param ResponseInterface $response
+         */
+        public function dispatch(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+        {
+            reset($this->middleware);
+            $this->response = $response;
+            return $this->handle($request);
+        }
+
         /**
          * Handle the request, return a response and calls
          * next middleware.

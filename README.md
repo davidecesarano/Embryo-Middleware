@@ -12,15 +12,16 @@ $ composer require davidecesarano/embryo-middleware
 ```
 
 ## Usage
-The MiddlewareDispatcher is a container for a queue of PSR-15 middleware. It takes two methods:
-* the method `add` appends the middleware to create a queue of middleware entries.
+The RequestHandler is a container for a queue of PSR-15 middleware. It takes three methods:
+* the method `add` add a middleware to the end of the queue.
+* the method `prepend` add a middleware to the beginning of the queue.
 * the method `dispatch` requires two arguments, a `ServerRequest` object and a `Response` object (used by terminator to return an empty response).
 
 ### Set ServerRequest and Response
 Create `ServerRequest` and `Response` objects.
 
 ```php
-use Embryo\Http\Server\MiddlewareDispatcher;
+use Embryo\Http\Server\RequestHandler;
 use Embryo\Http\Factory\{ServerRequestFactory, ResponseFactory};
 use Middlewares\{Uuid, ResponseTime};
 use Psr\Http\Message\ServerRequestInterface;
@@ -31,13 +32,17 @@ $response = (new ResponseFactory)->createResponse(200);
 ```
 
 ### Add middleware
-Create a queue of PSR-15 middleware with the `add` method. In this example we use two PSR-15 compatible middleware: [Uuid Middleware](https://github.com/middlewares/uuid) and [ResponseTime Middleware](https://github.com/middlewares/response-time).
+Create a queue of PSR-15 middleware with the `add` method or `constructor`. 
+The add (and prepend) method must be a string or a instance of MiddlewareInterface. In constructor you may create a queue with array of string or instance of MiddlewareInterface.
+
+In this example we use two PSR-15 compatible middleware: [Uuid Middleware](https://github.com/middlewares/uuid) and [ResponseTime Middleware](https://github.com/middlewares/response-time).
 
 ```php
 // PSR-15 MiddlewareInterface implementation
-$middleware = new MiddlewareDispatcher;
-$middleware->add(Uuid::class);
-$middleware->add(ResponseTime::class);
+$middleware = new RequestHandler([
+    Uuid::class,
+    ResponseTime::class
+]);
 $response = $middleware->dispatch($request, $response);
 ```
 

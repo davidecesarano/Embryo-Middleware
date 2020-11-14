@@ -29,7 +29,7 @@
         protected $middleware = [];
         
         /**
-         * @var array $middleware 
+         * @var ResponseInterface $response 
          */
         protected $response;
 
@@ -46,7 +46,9 @@
         /**
          * Add a middleware to the end of the queue.
          *
-         * @param string|MiddlewareInterface $middleware 
+         * @param string|MiddlewareInterface $middleware
+         * @return void 
+         * @throws \InvalidArgumentException 
          */
         public function add($middleware)
         {
@@ -62,6 +64,8 @@
          * Add a middleware to the beginning of the queue.
          *
          * @param string|MiddlewareInterface $middleware 
+         * @return void 
+         * @throws \InvalidArgumentException  
          */
         public function prepend($middleware)
         {
@@ -78,6 +82,7 @@
          * 
          * @param ServerRequestInterface $request 
          * @param ResponseInterface $response
+         * @return ResponseInterface
          */
         public function dispatch(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
         {
